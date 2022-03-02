@@ -1,0 +1,50 @@
+---
+- name: update web, nfs and db servers
+  hosts: webservers, nfs, db
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+    - name: ensure wireshark is at the latest version
+      yum:
+        name: wireshark
+        state: latest
+
+- name: update LB server
+  hosts: lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+    - name: Update apt repo
+      apt: 
+        update_cache: yes
+
+    - name: ensure wireshark is at the latest version
+      apt:
+        name: wireshark
+        state: latest
+
+- name: For all servers
+  hosts: all
+  remote_user: root
+  become: yes
+  tasks:
+    - name: Set timezone to Africa/Lagos
+      community.general.timezone:
+        name: Africa/Lagos
+   
+    - name: create a directory
+      ansible.builtin.file:
+        path: /etc/tmp/shell_folder
+        state: directory
+        mode: '0777'
+
+    - name: create a file
+      ansible.builtin.file:
+        path: /etc/tmp/shell_folder/just_file.txt
+        state: touch
+        mode: '0755'
+        
+    - name: run a shell script
+      ansible.builtin.shell: echo "This will go in log file" > /etc/tmp/shell_folder/log_file.txt

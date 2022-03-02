@@ -1,0 +1,22 @@
+nfs:
+  host:
+    nfs_private_ip: 172.31.84.250
+    nfs_ssh_user: ec2-user
+
+webservers:
+  host1:
+    web_server1_private_ip: 172.31.85.151
+    ansible_ssh_user: ec2-user
+  host2:
+    web_server2_private_ip: 172.31.82.212
+    ansible_ssh_user: ec2-user
+
+db:
+  host:
+    db_private_ip: 172.31.27.76
+    ansible_ssh_user: ubuntu
+
+lb:
+  host:
+    lb_private_ip: 172.31.87.27
+    ansible_ssh_user: ubuntu
