@@ -44,7 +44,7 @@
       ansible.builtin.file:
         path: /etc/tmp/shell_folder/just_file.sh
         state: touch
-        mode: '0755'
+        mode: '0777'
         
     - name: Execute a script
       script: /etc/tmp/shell_folder/just_file.sh
