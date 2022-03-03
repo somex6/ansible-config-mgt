@@ -28,6 +28,7 @@
 - name: For all servers
   hosts: all
   remote_user: root
+  become_user: root
   become: yes
   tasks:
     - name: Set timezone to Africa/Lagos
