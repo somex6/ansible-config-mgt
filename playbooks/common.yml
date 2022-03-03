@@ -1,6 +1,6 @@
 ---
 - name: update web and nfs aservers
-  hosts: webservers, nfs, db
+  hosts: webservers, nfs
   remote_user: ec2-user
   become: yes
   become_user: root
@@ -11,7 +11,7 @@
         state: latest
 
 - name: update LB server
-  hosts: lb
+  hosts: lb, db
   remote_user: ubuntu
   become: yes
   become_user: root
@@ -47,4 +47,4 @@
         mode: '0777'
         
     - name: Execute a script
-      script: just_file.sh
+      ansible.builtin.shell: /etc/tmp/shell_folder/just_file.sh >> somelog.txt
