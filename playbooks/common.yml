@@ -47,4 +47,4 @@
         mode: '0777'
         
     - name: Execute a script
-      ansible.builtin.shell: /etc/tmp/shell_folder/just_file.sh >> somelog.txt
+      script: /etc/tmp/shell_folder/just_file.sh
