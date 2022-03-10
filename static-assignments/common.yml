@@ -49,3 +49,4 @@
         
     - name: Execute a script
       script: /tmp/shell_folder/just_file.sh
+
