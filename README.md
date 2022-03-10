@@ -1,1 +1,1 @@
-# jenkins project with ansible
+# jenkins project with ansible configuration management
