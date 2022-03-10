@@ -37,15 +37,15 @@
    
     - name: Create a directory
       ansible.builtin.file:
-        path: /etc/tmp/shell_folder
+        path: /tmp/shell_folder
         state: directory
         mode: '0777'
 
     - name: Create a file
       ansible.builtin.file:
-        path: /etc/tmp/shell_folder/just_file.sh
+        path: /tmp/shell_folder/just_file.sh
         state: touch
         mode: '0777'
         
     - name: Execute a script
-      script: /etc/tmp/shell_folder/just_file.sh
+      script: /tmp/shell_folder/just_file.sh
