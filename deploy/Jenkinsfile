@@ -1,9 +1,6 @@
 pipeline {
     agent any
 
-    parameters {
-      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
-    }
   stages {
     stage("Initial Clean Up") {
       steps {
@@ -19,6 +16,10 @@ pipeline {
       }
     }
 
+    parameters {
+      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
+    }
+    
     stage('Execute Playbook') {
       steps {
         withEnv(['ANSIBLE_CONFIG = ${WORKSPACE}/deploy/.ansible.cfg']) {
