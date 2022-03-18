@@ -2,13 +2,21 @@ pipeline {
     agent any
 
   stages {
+    stage("Initial Clean Up") {
+      steps {
+        dir("${WORKSPACE}") {
+           deleteDir()
+        }
+      }
+    }
+
     stage('SCM Checkout') {
       steps {
         git branch: 'main', url: 'https://github.com/somex6/ansible-config-mgt.git'
       }
     }
 
-    stage('SCM Checkout') {
+    stage('Execute Playbook') {
       steps {
         withEnv(['ANSIBLE_CONFIG = ${WORKSPACE}/deploy/.ansible.cfg']) {
           ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'inventory/dev.yml', playbook: 'playbook/site.yml'
