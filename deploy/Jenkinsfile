@@ -2,42 +2,18 @@ pipeline {
     agent any
 
   stages {
-    stage('Build') {
+    stage('SCM Checkout') {
       steps {
-        script {
-          sh 'echo "Building Stage"'
-        }
+        git branch: 'main', url: 'https://github.com/somex6/ansible-config-mgt.git'
       }
     }
-  
-    stage('Test') {
-      steps {
-        script {
-          sh 'echo "Testing Stage"'
-        }
-      }
-    }
+  }
 
-    stage('Package') {
+  stages {
+    stage('SCM Checkout') {
       steps {
-        script {
-          sh 'echo "Package Stage"'
-        }
-      }  
-    }
-
-    stage('Deploy') {
-      steps {
-        script {
-          sh 'echo "Deploy Stage"'
-        }
-      }
-    }
-
-    stage('Clean Up') {
-      steps {
-        script {
-          sh 'echo "Clean Up Stage"'
+        withEnv(['ANSIBLE_CONFIG = ${WORKSPACE}/deploy/.ansible.cfg']) {
+          ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'inventory/dev.yml', playbook: 'playbook/site.yml'
         }
       }
     }
