@@ -7,9 +7,7 @@ pipeline {
         git branch: 'main', url: 'https://github.com/somex6/ansible-config-mgt.git'
       }
     }
-  }
 
-  stages {
     stage('SCM Checkout') {
       steps {
         withEnv(['ANSIBLE_CONFIG = ${WORKSPACE}/deploy/.ansible.cfg']) {
