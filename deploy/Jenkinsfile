@@ -1,29 +1,29 @@
 pipeline {
     agent any
 
-  stages {
-    stage("Initial Clean Up") {
-      steps {
-        dir("${WORKSPACE}") {
-           deleteDir()
-        }
-      }
+    parameters {
+      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
     }
+
+  stages {
+    // stage("Initial Clean Up") {
+    //   steps {
+    //     dir("${WORKSPACE}") {
+    //        deleteDir()
+    //     }
+    //   }
+    // }
 
     stage('SCM Checkout') {
       steps {
         git branch: 'main', url: 'https://github.com/somex6/ansible-config-mgt.git'
       }
     }
-
-    parameters {
-      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
-    }
     
     stage('Execute Playbook') {
       steps {
         withEnv(['ANSIBLE_CONFIG = ${WORKSPACE}/deploy/.ansible.cfg']) {
-          ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: '`${inventory}', playbook: 'playbooks/site.yml'
+          ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: '`${inventory}', playbook: 'playbooks/site.yml', tags: 'webservers'
         }
       }
     }
