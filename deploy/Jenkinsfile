@@ -23,7 +23,7 @@ pipeline {
     stage('Execute Playbook') {
       steps {
         withEnv(['ANSIBLE_CONFIG = ${WORKSPACE}/deploy/.ansible.cfg']) {
-          ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: '${inventory}', playbook: 'playbooks/site.yml', tags: 'webservers'
+          ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'inventory/${inventory}', playbook: 'playbooks/site.yml', tags: 'webservers'
         }
       }
     }
