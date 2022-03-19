@@ -26,30 +26,28 @@
       apt:
         name: wireshark
         state: latest
-      tags:
-        - webservers
 
-- name: For all servers
-  hosts: all
-  remote_user: root
-  become_user: root
-  become: yes
-  tasks:
-    # - name: Set timezone to Africa/Lagos
-    #   community.general.timezone:
-    #     name: Africa/Lagos
+# - name: For all servers
+#   hosts: all
+#   remote_user: root
+#   become_user: root
+#   become: yes
+#   tasks:
+#     # - name: Set timezone to Africa/Lagos
+#     #   community.general.timezone:
+#     #     name: Africa/Lagos
    
-    - name: Create a directory
-      ansible.builtin.file:
-        path: /tmp/shell_folder
-        state: directory
-        mode: '0777'
+#     - name: Create a directory
+#       ansible.builtin.file:
+#         path: /tmp/shell_folder
+#         state: directory
+#         mode: '0777'
 
-    - name: Create a file
-      ansible.builtin.file:
-        path: /tmp/shell_folder/just_file.sh
-        state: touch
-        mode: '0777'
+#     - name: Create a file
+#       ansible.builtin.file:
+#         path: /tmp/shell_folder/just_file.sh
+#         state: touch
+#         mode: '0777'
         
-    - name: Execute a script
-      script: /tmp/shell_folder/just_file.sh
+#     - name: Execute a script
+#       script: /tmp/shell_folder/just_file.sh
