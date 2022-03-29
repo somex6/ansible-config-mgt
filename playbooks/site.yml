@@ -7,7 +7,7 @@
     tags:
       - always
 
-- name: Include dynamic variables
+- name: Import common.yml playbook
   hosts: all
 - import_playbook: ../static-assignments/common.yml
 
